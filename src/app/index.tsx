@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import { FlatList, View, SectionList, Text } from "react-native";
 import { CategoryButton } from "~/components/category-button";
 import { Header } from "~/components/header";
-import { Produtct } from "~/components/product";
-import { CATEGORIES, MENU } from "~/utils/data/products";
+import { Produtc } from "~/components/product";
+import { CATEGORIES, MENU, ProductProps } from "~/utils/data/products";
 import { Link } from "expo-router";
 import { useCartStore } from "~/stores/cart-store";
 
@@ -11,7 +11,7 @@ function Home() {
     const cartStore = useCartStore();
     const [category, setCategory] = useState(CATEGORIES[0]);
 
-    const sectionListRef = useRef<SectionList>(null);
+    const sectionListRef = useRef<SectionList<ProductProps>>(null);
 
     const cartQuantityItems = cartStore.products.reduce((total, product) => total + product.quantity, 0);
 
@@ -54,7 +54,7 @@ function Home() {
                 stickySectionHeadersEnabled={false}
                 renderItem={({ item }) => (
                     <Link href={`/product/${item.id}`} asChild>
-                        <Produtct data={item} />
+                        <Produtc data={item} />
                     </Link>
                 )}
                 renderSectionHeader={({ section: { title } }) => (
